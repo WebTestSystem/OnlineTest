@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="bean">
+	<class name="Exam" table="exam">
+		<id name="id" column="ExamId" type="integer">
+			<generator class="native"/>
+		</id>
+		<property name="subject" column="ExamSubject" type="string"></property>
+		<property name="mClass" column="ExamClass" type="string"></property>
+		<property name="eTeacher" column="ExamTeacher" type="string"></property>
+		<property name="data" column="ExamData" type="string"></property>
+		<property name="number" column="ExamNumber" type="string"></property>
+		<property name="status" column="ExamStatus" type="string"></property>
+		<property name="examFileName" column="ExamFileName" type="string"></property>
+	</class>
+</hibernate-mapping>
