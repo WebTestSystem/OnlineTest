@@ -1,0 +1,76 @@
+@charset "UTF-8";
+-webkit-animation-name: kenburns;       /*-animation-name:为@keyframes 动画规定名称,必须与-animation-duration同时使用，否则无动画效果*/
+    animation-name: kenburns;             
+
+    -webkit-animation-duration: 16s;    /*定义动画完成一个周期所需时间*/
+    animation-duration: 16s;
+
+    -webkit-animation-timing-function: linear;  /*规定动画从头到尾以相同速度播放，还有其他几个速度值*/
+    animation-timing-function: linear;
+
+    -webkit-animation-iteration-count: infinite;    /*规定动画播放次数，infinite为无限次*/
+    animation-iteration-count: infinite;
+
+    -webkit-transform: scale(1.2);      /*规定动画的缩放特效，scale：规定2D缩放*/
+    transform: scale(1.2);
+
+    -webkit-filter: blur(10px);       /*定义图片的模糊程度，显示为毛玻璃效果*/
+    filter: blur(10px);
+    
+ .bgk{
+ 	width:auto;
+ 	height:100%;
+ }   
+ 
+ 
+ .bgk-image:nth-child(1) {
+    -webkit-animation-name: kenburns-1;       /*选择器上的名称*/
+    animation-name: kenburns-1;
+    z-index: 3;         /*动画堆叠顺序，值越大表示越先播放，离用户越近*/
+    }
+.bgk-image:nth-child(2) {
+    -webkit-animation-name: kenburns-2;
+    animation-name: kenburns-2;
+    z-index: 2;
+    }
+    
+ @-webkit-keyframes kenburns-1 {
+    0% {
+        opacity: 1;     /*规定不透明度*/
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+    27.861% {
+        opacity: 0;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    80.435% {
+        opacity: 0;
+        -webkit-transform: scale(1.21);
+        transform: scale(1.21);
+    }
+    100% {
+        opacity: 1;
+    }
+}
+ @-webkit-keyframes kenburns-2 {
+    0% {
+        opacity: 1;     /*规定不透明度*/
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+    27.861% {
+        opacity: 0;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    80.435% {
+        opacity: 0;
+        -webkit-transform: scale(1.21);
+        transform: scale(1.21);
+    }
+    100% {
+        opacity: 1;
+    }
+}

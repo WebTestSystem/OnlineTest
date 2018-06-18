@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	 <table  class="table table-striped table-bordered">
+				<thead>
+					<tr>
+					    <th>
+							考试编号	
+						</th>
+						<th>
+							学生姓名	
+						</th>
+						<th>
+							学号	
+						</th>
+						<th>
+							下载路径	
+						</th>
+						<th>
+							操作	
+						</th>
+					</tr>
+				</thead>
+
+               <tbody id="t_body1">
+						<%
+							System.out.println("sgfsdgfsdfgsdfgdsfghahahah" + msession.getAttribute("test"));
+						    String teachernumber=msession.getAttribute("teachernumber").toString();
+						    String test = "";
+							ORMTool download_ormtool = new ORMTool();
+							download_ormtool.initSession();
+							String download_hql = "select s.studenttag,s.studentname,s.studentnumber,s.status from Student s";
+							Query download_query = download_ormtool.getQuery(download_hql);
+							List<Object[]> download_list = download_query.list();
+							System.out.println("download_list.size():  "+download_list.size());
+							for(Object[] obj : download_list)
+							{
+								//jiemi
+								String key="666";
+								String obj1=obj[1].toString();
+								String obj2=obj[2].toString();
+								String de_studentname;
+								String de_studentnumber;
+								
+								//获取examtag参数，未实现
+								String student0_19=obj[0].toString().substring(0,19);
+								if(student0_19.equals(teachernumber))
+								{
+									de_studentname=AESUtils.decrypt(key, obj1);    
+						    		de_studentnumber=AESUtils.decrypt(key, obj2);									
+								
+								/* String examtag="";
+								//String examtag=msession.getAttribute("examtag").toString();
+								//System.out.println("examtag:=="+examtag+"   examtag.substring(20)"+examtag.substring(20));
+							    String[] studenttags=obj[0].toString().substring(20).split(",");
+							    for(int i=0;i<studenttags.length;i++)
+							    {
+							    	if(studenttags[i].equals(examtag.substring(20)))
+							    	{ 
+							    		de_studentname=AESUtils.decrypt(key, obj1);    
+							    		de_studentnumber=AESUtils.decrypt(key, obj2);
+							   */
+								
+								
+								
+						%>
+								
+								<tr>
+								<td><%= obj[0]%></td>
+								<td><%= de_studentname%></td>
+								<td><%= de_studentnumber%></td>
+								<td><%= de_studentnumber%></td>
+								<td>
+									<div class="btn-group">
+				 					 	<button id="btn_downloadpaper" name="<%= de_studentnumber%>" value="<%= de_studentnumber%>" class="btn btn-primary" type="button">下载答案</button> 
+									</div>
+								</td>
+								</tr>
+						<% 
+							 		}
+ 							    //}
+							} 
+						%>
+				</tbody>
+				
+			</table>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC  
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"  
+    "http://struts.apache.org/dtds/struts-2.3.dtd">  
+  
+<struts>  
+<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<!-- <constant name="struts.action.extension" value="action"></constant> -->
+<!--//基础配置  
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />  
+    <constant name="struts.devMode" value="true" />  
+    <constant name="struts.i18n.reload" value="true" />  
+    <constant name="struts.configuration.xml.reload" value="true" ></constant>  
+-->  
+	<!-- 公共模块 ，处理登入登出，从此处转到不同的模块，session待添加-->
+    <package name="comman" namespace="/comman" extends="struts-default"> 
+    	<action name="LoginAction" class="comman.LoginAction">
+    		<result name="admin">/WEB-INF/page/Admin/admin_add_teacher.jsp</result>
+    		<result name="student">/WEB-INF/page/Student/student_main.jsp</result>
+    		<result name="teacher">/WEB-INF/page/Teacher/teacher_exam_before.jsp</result>
+    		<result name="log_error">/WEB-INF/page/error.jsp</result>
+    	</action>  
+    	
+    	<!-- 此action转为超链接设置-->
+    	<action name="LinkAction" class="comman.LinkAction">
+    		<result name="null_page">/WEB-INF/page/nullpage.jsp</result>
+    		
+    		<result name="0000">/index.jsp</result>
+    		
+    		<result name="0001">/index.jsp</result>
+    		<result name="0002">/WEB-INF/page/Admin/admin_add_teacher.jsp</result>
+    		<result name="0003">/WEB-INF/page/Admin/admin_list_exam.jsp</result>
+    		<result name="0004">/WEB-INF/page/Admin/admin_set_system.jsp</result>
+    		
+    		<result name="1000">/index.jsp</result>
+    		<result name="1001">/WEB-INF/page/Teacher/teacher_add_student.jsp</result>
+    		<result name="1002">/WEB-INF/page/Teacher/teacher_create_exam.jsp</result>
+    		<result name="1003">/WEB-INF/page/Teacher/teacher_edit_exam.jsp</result>
+    		<result name="1004">/WEB-INF/page/Teacher/teacher_exam_after.jsp</result>
+    		<result name="1005">/WEB-INF/page/Teacher/teacher_exam_before.jsp</result>
+    		<result name="1006">/WEB-INF/page/Teacher/teacher_list_exam.jsp</result>
+    		<result name="1007">/WEB-INF/page/Teacher/teacher_manage_notify.jsp</result>
+    		<result name="1008">/WEB-INF/page/Teacher/teacher_add_student.jsp</result>
+    		<result name="1009">/WEB-INF/page/Teacher/teacher_manage_summary.jsp</result>
+    		<result name="1010">/WEB-INF/page/Teacher/teacher_manage_unlock.jsp</result>
+    		
+    		<result name="2000">/index.jsp</result>
+    		<result name="2001">/WEB-INF/page/Student/student_update_paper.jsp</result>
+    	</action>
+    	
+    	<action name="SwitchAction"  class="comman.SwitchAction">
+    		<result name="success">/CometServelet</result>
+    	</action>
+    </package>  
+   
+   <!-- 老师模块，处理对于老师的逻辑 -->
+    <constant name="struts.multipart.saveDir" value="/tmp"/>
+    <package name="teacher" extends="struts-default"> 
+    	<!-- 上传Excel -->
+      	<action name="UploadExcelAction" class="teacher.UploadExcelAction">
+			<interceptor-ref name="defaultStack">
+                <param name="fileUpload.maximumSize">500000000</param>
+                <param name="fileUpload.allowedTypes">application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
+                <param name="fileUpload.allowedExtensions">.xls,.xlsx</param>
+            </interceptor-ref>
+            <result name="input">/WEB-INF/page/Teacher/message.jsp</result>
+    		<result name="error">/WEB-INF/page/error.jsp</result>
+		</action>
+		<!-- 上传试卷 -->
+		<action name="UploadAction" class="teacher.UploadAction">
+    		<result name="success">/WEB-INF/page/Teacher/message.jsp</result>
+    		<result name="error">/WEB-INF/page/error.jsp</result>
+    	</action>
+    	<!-- 下载答案 -->
+    	<action name="DownLoadAction" class="teacher.DownloadAction">
+	    	<result name="success" type="stream">
+<!-- 		    <param name="contentType">image/jpeg</param>指定下载文件类型 -->
+			    <param name="contentDisposition">attachment;filename="${fileName}"</param>
+<!-- 			    filename="${fileName}"指定下载文件名 -->
+			    <param name="inputName">TargetFile</param>
+			    <param name="bufferSize">40960</param>指定下载文件缓存的大小 
+	   		</result>
+    </action>
+    </package> 
+    
+    <!-- 学生模块，处理对于学生的逻辑 -->
+    <constant name="struts.multipart.saveDir" value="/tmp"/>
+    <package name="student" extends="struts-default"> 
+    	<action name="HandinAction" class="student.HandinAction">
+    		<result name="success">/WEB-INF/page/Student/message.jsp</result>
+    		<result name="error">/WEB-INF/page/error.jsp</result>
+    	</action>
+    	<action name="DownLoadAction" class="student.DownloadAction">
+	    	<result name="success" type="stream">
+<!-- 		    <param name="contentType">image/jpeg</param>指定下载文件类型 -->
+			    <param name="contentDisposition">attachment;filename="${fileName}"</param>
+<!-- 			    filename="${fileName}"指定下载文件名 -->
+			    <param name="inputName">DownLoadFile</param>
+			    <param name="bufferSize">40960</param>指定下载文件缓存的大小 
+	   		</result>
+    </action>
+    </package>
+    
+    <!-- 管理员 -->
+    <package name="admin" namespace="/admin" extends="struts-default"> 
+    	
+    </package> 
+    
+    <!-- 局部刷新 -->
+    <package name="ajaxaction" namespace="/ajaxaction" extends="json-default"> 
+    	<action name="AddTeacherAction" class="ajaxaction.AddTeacherAction">
+		</action>
+		
+		<action name="AddOneStudentAction" class="ajaxaction.AddOneStudentAction">
+		</action>
+		
+		<action name="AddStudentByExcel" class="ajaxaction.AddStudentByExcel">
+		</action>
+		
+		<action name="DeleteStudentAction" class="ajaxaction.DeleteStudentAction">
+			<result type="json">
+    			<param name="root">test</param>
+    		</result>
+		</action>
+		
+		<action name="AddExamAction" class="ajaxaction.AddExamAction">
+		</action>
+		<action name="SettingAction" class="ajaxaction.SettingAction">
+		</action>
+		<action name="TeacherToManager" class="ajaxaction.TeacherToManager">
+			<result name="success">
+				<param name="root">test</param>
+			</result>
+		</action>
+		<action name="DeleteExamAction" class="ajaxaction.DeleteExamAction">
+		</action>
+		<action name="DeleteTeacherAction" class="ajaxaction.DeleteTeacherAction">
+		</action>
+		<action name="EditTeacherAction" class="ajaxaction.EditTeacherAction">
+		</action>
+		<action name="StartExamAction" class="ajaxaction.StartExamAction">
+		</action>
+		<action name="EditExamAction" class="ajaxaction.EditExamAction">
+		</action>
+		<action name="EditStudentAction" class="ajaxaction.EditStudentAction">
+		</action>
+		<action name="CometAction" class="ajaxaction.CometAction">
+		</action>
+		<action name="TempAction" class="ajaxaction.TempAction">
+		</action>
+		<action name="SeesionAction" class="ajaxaction.SeesionAction">
+		</action>
+    </package> 
+      
+</struts> 

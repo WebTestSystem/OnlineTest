@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="bean">
+	<class name="Teacher" table="teacher">
+		<id name="teacherid" column="TeacherId" type="integer">
+			<generator class="native"/>
+		</id>
+		<property name="teachernumber" column="TeacherNumber" type="string"></property>
+		<property name="teacherpassword" column="TeacherPassword" type="string"></property>
+		<property name="teachername" column="TeacherName" type="string"></property>
+		<property name="isadmin" column="IsAdmin" type="string"></property>
+		<property name="status" column="Status" type="string"></property>
+		<property name="uploadFileName" column="UploadFileName" type="string"></property>
+		<property name="uploadFileDate" column="UploadFileDate" type="string"></property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.horizatal_center600{
+	margin:0 auto; 
+	width:600px; 
+}
+
+.horizatal_center400{
+	margin:0 auto; 
+	width:400px; 
+}
+
+.horizatal_center1200{
+	margin:0 auto; 
+	width:1200px; 
+}
