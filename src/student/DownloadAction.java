@@ -40,25 +40,28 @@ public class DownloadAction extends ActionSupport{
 
     public InputStream getDownLoadFile() throws IOException {
     	
-    	//获取studenttag了
-		HttpSession msession = ServletActionContext.getRequest().getSession();
-		String examnumber= msession.getAttribute("examnumber").toString();
-		System.out.println("examnumber At DownloadAction:"+examnumber);
     	
-    	//获取examfilename
-    	ORMTool ormtool0 = new ORMTool();
-		ormtool0.initSession();
-		String hql0 = "select e.examFileName,e.status from Exam as e where e.examnumber=?";
-		Query query0 = ormtool0.getQuery(hql0);
-		query0.setString(0, "" + examnumber);
-		List<Object[]> list0 = query0.list();
-		String examfileName = null;
-		for(Object[] obj : list0) {
-			examfileName=obj[0].toString();
-		}
-		System.out.println("examfileName:"+examfileName);
 		
         if(1==number){
+        	//获取studenttag了
+    		HttpSession msession = ServletActionContext.getRequest().getSession();
+    		String examnumber= msession.getAttribute("examnumber").toString();
+    		System.out.println("examnumber At DownloadAction:"+examnumber);
+        	
+        	//获取examfilename
+        	ORMTool ormtool0 = new ORMTool();
+    		ormtool0.initSession();
+    		String hql0 = "select e.examFileName,e.status from Exam as e where e.examnumber=?";
+    		Query query0 = ormtool0.getQuery(hql0);
+    		query0.setString(0, "" + examnumber);
+    		List<Object[]> list0 = query0.list();
+    		String examfileName = null;
+    		for(Object[] obj : list0) {
+    			examfileName=obj[0].toString();
+    		}
+    		System.out.println("examfileName:"+examfileName);
+        	
+        	
             this.fileName=examfileName;
             this.fileName=new String(this.fileName.getBytes("gbk"), "iso-8859-1");
             String path = "/upload/examinationPaper/"+examfileName;

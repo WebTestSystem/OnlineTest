@@ -35,7 +35,13 @@ public class ExcelReadTool {
 	            }else if(fileName.endsWith("xlsx")){    
 	            //解析xlsx格式    
 	            	//wb = new XSSFWorkbook(inputStream); 
-	            	wb = new HSSFWorkbook(inputStream);
+	            	try {
+	            		wb = new HSSFWorkbook(inputStream);
+					} catch (Exception e) {
+						// TODO: handle exception
+						wb = new HSSFWorkbook(inputStream);
+					}
+	            	
 	            }
 	            
 	            //第一个工作表    

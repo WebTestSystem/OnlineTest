@@ -139,6 +139,14 @@ public class StartExamAction  extends ActionSupport{
 					.setString("oldNumber", this.examnumber).executeUpdate();
 			ormtool.getTranscation().commit();
 			ormtool.closeSession();
+			
+			ORMTool ormtool2 = new ORMTool();
+			ormtool2.initSession();
+			String hql2 = "update Student s set s.ipAdress = :newipAdress";
+			int updateEnnity2 = ormtool2.getSession().createQuery(hql2).setString("newipAdress", "ip").
+					executeUpdate();
+			ormtool2.getTranscation().commit();
+			ormtool2.closeSession();
 			return SUCCESS;
 		}
 	}
